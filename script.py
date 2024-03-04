@@ -30,14 +30,11 @@ with app.app_context():
     # Google Gemini creds
     API_KEY = os.getenv('GOOGLE_API_KEY')
     # CREDENTIALS = service_account.Credentials. from_service_account_file('google_key.json')
-    print(API_KEY, file=sys.stdout)
+
     # Whatsapp creds
     WHATSAPP_TOKEN = os.getenv("WA_TOKEN")
-    print(WHATSAPP_TOKEN, file=sys.stdout)
     verify_token = os.getenv("VERIFY_TOKEN")
-    print(verify_token, file=sys.stdout)
     number_id = os.getenv("NUMBER_ID")
-    print(number_id, file=sys.stdout)
 
     WHATSAPP_URL = f"https://graph.facebook.com/v18.0/{number_id}/messages"
     
@@ -76,6 +73,7 @@ def index():
     
 
 def sendWhastAppMessage(phoneNumber, message):
+    print("sendWhastAppMessage function called", file=sys.stdout)
     headers = {"Authorization": WHATSAPP_TOKEN}
     payload = {
                 "messaging_product": "whatsapp",
@@ -85,6 +83,7 @@ def sendWhastAppMessage(phoneNumber, message):
                 "text": {"body": message}
               }
     requests.post(WHATSAPP_URL, headers=headers, json=payload)
+    print(payload, file=sys.stdout)
     return True
 
 
@@ -114,12 +113,13 @@ def handleWhatsAppMessage(fromId, text):
 
 @app.route('/123456', methods=['GET', 'POST'])
 def whatsAppWebhook():
+    print("whatsAppWebhook function called", file=sys.stdout)
     if request.method == 'GET':
         VERIFY_TOKEN = verify_token
         mode = request.args.get('hub.mode')
         token = request.args.get('hub.verify_token')
         challenge = request.args.get('hub.challenge')
-
+        print("GET method called", file=sys.stdout)
         if mode == 'subscribe' and token == VERIFY_TOKEN:
             return challenge, 200
         else:
