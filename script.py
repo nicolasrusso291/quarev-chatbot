@@ -25,18 +25,18 @@ cache.init_app(app)
 
 chatbot = {}
 
+# Google Gemini creds
+API_KEY = os.getenv('GOOGLE_API_KEY')
+# CREDENTIALS = service_account.Credentials. from_service_account_file('google_key.json')
+
+# Whatsapp creds
+WHATSAPP_TOKEN = os.getenv("WA_TEMP_TOKEN")
+verify_token = os.getenv("VERIFY_TOKEN")
+number_id = os.getenv("NUMBER_ID")
+
+WHATSAPP_URL = f"https://graph.facebook.com/v18.0/{number_id}/messages"
+
 with app.app_context():
-
-    # Google Gemini creds
-    API_KEY = os.getenv('GOOGLE_API_KEY')
-    # CREDENTIALS = service_account.Credentials. from_service_account_file('google_key.json')
-
-    # Whatsapp creds
-    WHATSAPP_TOKEN = os.getenv("WA_TEMP_TOKEN")
-    verify_token = os.getenv("VERIFY_TOKEN")
-    number_id = os.getenv("NUMBER_ID")
-
-    WHATSAPP_URL = f"https://graph.facebook.com/v18.0/{number_id}/messages"
     
     model = "gemini-pro"
 
