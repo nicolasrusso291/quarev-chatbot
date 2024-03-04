@@ -116,10 +116,13 @@ def whatsAppWebhook():
     print("whatsAppWebhook function called", file=sys.stdout)
     if request.method == 'GET':
         VERIFY_TOKEN = verify_token
+        print(str(VERIFY_TOKEN), file=sys.stdout)
         mode = request.args.get('hub.mode')
+        print(str(mode), file=sys.stdout)
         token = request.args.get('hub.verify_token')
+        print(str(token), file=sys.stdout)
         challenge = request.args.get('hub.challenge')
-        print("GET method called", file=sys.stdout)
+        print(str(challenge), file=sys.stdout)
         if mode == 'subscribe' and token == VERIFY_TOKEN:
             # return challenge, 200
             return app.make_response((str(challenge), 200))
