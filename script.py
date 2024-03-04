@@ -15,9 +15,6 @@ executor = ThreadPoolExecutor(2)
 cache = Cache(config={"CACHE_TYPE": 'SimpleCache'})
 app = Flask(__name__)
 
-dotenv_path = Path('./RUN.env')
-load_dotenv(dotenv_path=dotenv_path)
-
 FLASK_KEY = os.getenv('FLASK_KEY')
 # Configurar el secreto de la sesión
 app.secret_key = FLASK_KEY
@@ -33,11 +30,14 @@ with app.app_context():
     # Google Gemini creds
     API_KEY = os.getenv('GOOGLE_API_KEY')
     # CREDENTIALS = service_account.Credentials. from_service_account_file('google_key.json')
-
+    print(API_KEY, file=sys.stdout)
     # Whatsapp creds
     WHATSAPP_TOKEN = os.getenv("WA_TOKEN")
+    print(WHATSAPP_TOKEN, file=sys.stdout)
     verify_token = os.getenv("VERIFY_TOKEN")
+    print(verify_token, file=sys.stdout)
     number_id = os.getenv("NUMBER_ID")
+    print(number_id, file=sys.stdout)
 
     WHATSAPP_URL = f"https://graph.facebook.com/v18.0/{number_id}/messages"
     
