@@ -121,9 +121,10 @@ def whatsAppWebhook():
         challenge = request.args.get('hub.challenge')
         print("GET method called", file=sys.stdout)
         if mode == 'subscribe' and token == VERIFY_TOKEN:
-            return challenge, 200
+            # return challenge, 200
+            return app.make_response((str(challenge), 200))
         else:
-            return 'error', 403
+            return app.make_response(("error", 403))
 
     if request.method == 'POST':
         data = request.json
@@ -136,7 +137,7 @@ def whatsAppWebhook():
                     sendWhastAppMessage(fromId, f"We have received: {text}")
                     executor.submit(handleWhatsAppMessage, fromId, text)
 
-        return 'success', 200
+        return app.make_response(("success", 200))
 
 
 if __name__ == "__main__":
