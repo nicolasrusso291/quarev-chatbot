@@ -111,10 +111,10 @@ def handleWhatsAppMessage(fromId, text):
     sendWhastAppMessage(fromId, answer)
 
 
-@app.route('/123456', methods=['GET', 'POST'])
+@app.route("/123456", methods=["POST", "GET"])
 def whatsAppWebhook():
     print("whatsAppWebhook function called", file=sys.stdout)
-    if request.method == 'GET':
+    if request.method == "GET":
         VERIFY_TOKEN = verify_token
         print(str(VERIFY_TOKEN), file=sys.stdout)
         mode = request.args.get('hub.mode')
@@ -129,7 +129,7 @@ def whatsAppWebhook():
         else:
             return app.make_response(("error", 403))
 
-    if request.method == 'POST':
+    if request.method == "POST":
         data = request.json
         if 'object' in data and 'entry' in data:
             if data['object'] == 'whatsapp_business_account':
