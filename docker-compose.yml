@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  web:
+    image: ghcr.io/ssaid/wa-chatbot:main
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/usr/src/app
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=script.py
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - WA_TOKEN=${WA_TOKEN}
+      - VERIFY_TOKEN=${VERIFY_TOKEN}
+      - NUMBER_ID=${NUMBER_ID}
+      - FLASK_KEY=${FLASK_KEY}
+    networks:
+      inverseproxy_shared:
+
+networks:
+  inverseproxy_shared:
+    external: true
