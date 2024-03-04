@@ -32,7 +32,7 @@ with app.app_context():
     # CREDENTIALS = service_account.Credentials. from_service_account_file('google_key.json')
 
     # Whatsapp creds
-    WHATSAPP_TOKEN = os.getenv("WA_TOKEN")
+    WHATSAPP_TOKEN = os.getenv("WA_TEMP_TOKEN")
     verify_token = os.getenv("VERIFY_TOKEN")
     number_id = os.getenv("NUMBER_ID")
 
